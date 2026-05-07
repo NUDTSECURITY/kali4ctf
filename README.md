@@ -10,7 +10,6 @@
 
 基于 Kali Linux 的 Docker 镜像，集成了 MCP 服务器和 60+ 安全工具。用于 CTF 比赛、渗透测试和安全研究。
 
-底层 MCP 服务来自 [MCP-Kali-Server](https://github.com/Wh0am123/MCP-Kali-Server)。
 
 ### 工具清单
 
