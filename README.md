@@ -95,6 +95,10 @@ docker build --build-arg KALI_MIRROR=http://http.kali.org/kali -t kali-mcp:lates
 
 ```
 kali4ctf/
+├── .claude/
+│   ├── hooks/
+│   │   └── ensure-kali.sh  # SessionStart hook，自动启动/恢复容器
+│   └── settings.json       # Claude Code hook 配置
 ├── Dockerfile
 ├── docker-compose.yml
 ├── entrypoint.sh
@@ -105,6 +109,18 @@ kali4ctf/
 ├── LICENSE
 └── README.md
 ```
+
+### Claude Code Hook
+
+项目内置了 `SessionStart` hook（`.claude/hooks/ensure-kali.sh`），每次启动 Claude Code 会话时自动：
+
+1. 检查 `localhost:5000/health` 是否可达
+2. 如果容器不存在，自动 `docker run` 启动
+3. 如果容器已暂停，自动 `docker unpause`
+4. 如果容器异常（exited/dead），自动删除并重建
+5. 等待最多 30 秒直到健康检查通过
+
+使用 Claude Code 打开此项目目录即可自动生效，无需手动 `docker compose up`。
 
 ### FAQ
 
@@ -213,6 +229,10 @@ docker build --build-arg KALI_MIRROR=http://http.kali.org/kali -t kali-mcp:lates
 
 ```
 kali4ctf/
+├── .claude/
+│   ├── hooks/
+│   │   └── ensure-kali.sh  # SessionStart hook, auto-start/resume container
+│   └── settings.json       # Claude Code hook config
 ├── Dockerfile
 ├── docker-compose.yml
 ├── entrypoint.sh
@@ -223,6 +243,18 @@ kali4ctf/
 ├── LICENSE
 └── README.md
 ```
+
+### Claude Code Hook
+
+The project includes a `SessionStart` hook (`.claude/hooks/ensure-kali.sh`) that automatically:
+
+1. Checks if `localhost:5000/health` is reachable
+2. If no container exists, runs `docker run` to start it
+3. If container is paused, runs `docker unpause`
+4. If container is in a bad state (exited/dead), removes and recreates it
+5. Waits up to 30 seconds for health check to pass
+
+Simply open this project directory in Claude Code — no need to manually run `docker compose up`.
 
 ### FAQ
 
